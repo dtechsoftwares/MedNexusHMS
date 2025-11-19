@@ -1,0 +1,8 @@
+{
+  "name": "MedNexus HMS",
+  "description": "A robust, cloud-based Hospital Management System with AI-powered workflow automation, multi-branch support, and comprehensive role-based access control.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
