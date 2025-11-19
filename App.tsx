@@ -3,7 +3,7 @@ import { HashRouter as Router, Routes, Route, Navigate, useNavigate, useLocation
 import { 
   LayoutDashboard, Users, Calendar, Activity, Pill, Beaker, Settings, 
   LogOut, Menu, X, Plus, Search, Bell, FileText, ShieldCheck, User as UserIcon,
-  CreditCard, Stethoscope, AlertTriangle, QrCode, BrainCircuit
+  CreditCard, Stethoscope, AlertTriangle, QrCode, BrainCircuit, Eye, EyeOff
 } from 'lucide-react';
 import { 
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
@@ -20,6 +20,7 @@ import { analyzeSymptoms, summarizeMedicalHistory } from './services/geminiServi
 const Login = ({ onLogin }: { onLogin: (u: User) => void }) => {
   const [email, setEmail] = useState('sarah@mednexus.com');
   const [password, setPassword] = useState('password');
+  const [showPassword, setShowPassword] = useState(false);
   const [selectedRole, setSelectedRole] = useState<UserRole>(UserRole.SUPER_ADMIN);
 
   const handleLogin = (e: React.FormEvent) => {
@@ -66,12 +67,21 @@ const Login = ({ onLogin }: { onLogin: (u: User) => void }) => {
             </div>
             <div>
               <label className="block text-sm font-medium text-emerald-800 mb-1">Password</label>
-              <input 
-                type="password" 
-                value={password}
-                onChange={e => setPassword(e.target.value)}
-                className="w-full border-emerald-200 text-emerald-900 placeholder-emerald-400 rounded-lg shadow-sm focus:ring-emerald-500 focus:border-emerald-500 p-2.5 border bg-emerald-50/30"
-              />
+              <div className="relative">
+                <input 
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
+                  className="w-full border-emerald-200 text-emerald-900 placeholder-emerald-400 rounded-lg shadow-sm focus:ring-emerald-500 focus:border-emerald-500 p-2.5 border bg-emerald-50/30 pr-10"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-emerald-600 hover:text-emerald-800 focus:outline-none"
+                >
+                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                </button>
+              </div>
             </div>
             <button type="submit" className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 rounded-lg transition-colors">
               Secure Login
